@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../store/store";
+import type { AppDispatch, RootState } from "../store/store";
 import { useEffect, useState } from "react";
 import { addToCart, fetchProducts } from "../features/productSlice";
 import { useNavigate } from "react-router-dom";
 
 const MensCloths = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>(); 
   const navigate = useNavigate();
   const { data } = useSelector((state: RootState) => state.products);
 
@@ -14,15 +14,13 @@ const MensCloths = () => {
   const mensFashion = data.filter((item) => item.category === "men's clothing");
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts()); 
   }, [dispatch]);
 
   const handleCart = (id: number) => {
     if (clickedItems.includes(id)) {
-      // Second click: Redirect to cart
       navigate("/cart");
     } else {
-      // First click: Add to cart
       dispatch(addToCart(id));
       setClickedItems((prev) => [...prev, id]);
     }

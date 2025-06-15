@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../store/store";
+import type { AppDispatch, RootState } from "../store/store";
 import { useEffect, useState } from "react";
 import { addToCart, fetchProducts } from "../features/productSlice";
 import { useNavigate } from "react-router-dom";
 
 const WomensCloths = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>(); 
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useState<number[]>([]);
 

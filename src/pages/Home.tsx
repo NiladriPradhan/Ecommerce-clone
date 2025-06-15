@@ -7,7 +7,7 @@ import SearchByPrice from "../components/SearchByPrice";
 
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { isLoading, data, filteredData, isError } = useSelector(
+  const { isLoading, filteredData, isError } = useSelector(
     (state: RootState) => state.products
   );
   useEffect(() => {
@@ -20,7 +20,6 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-wrap justify-center gap-6 px-4 py-8 mx-auto max-w-[1200px]">
-
         <div className="w-full flex justify-center mb-6">
           <SearchByPrice />
         </div>

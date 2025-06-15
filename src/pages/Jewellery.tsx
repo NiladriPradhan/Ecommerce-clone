@@ -25,14 +25,6 @@ const Electronics = () => {
     (product) => product.category.toLowerCase() === "jewelery"
   );
 
-  const handleCartToggle = (id: number) => {
-    const isInCart = cart.some((item) => item.id === id);
-    if (isInCart) {
-      dispatch(removeFromCart(id));
-    } else {
-      dispatch(addToCart(id));
-    }
-  };
 
   if (isLoading)
     return <p className="text-center text-lg font-semibold">Loading...</p>;
@@ -55,7 +47,6 @@ const Electronics = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {jeweleryProducts.map((product) => {
-            const isInCart = cart.some((item) => item.id === product.id);
 
             return (
               <div
