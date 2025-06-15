@@ -1,0 +1,100 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import "./App.css";
+import { Button } from "./components/ui/button";
+
+// This is the correct structure returned by fakestoreapi.com/products
+type Product = {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+};
+
+function App() {
+  const [data, setData] = useState<Product[]>([]);
+  const [toggle, setToggle] = useState<boolean>(false);
+  const [isloading, setIsLoading] = useState<boolean>(false);
+  const [getinputSearch, setGetInputSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await axios.get<Product[]>("https://fakestoreapi.com/products");
+  //     setData(res.data);
+  //   };
+  //   fetchData();
+  // }, []);
+
+  const handleToggle = async () => {
+    setIsLoading(true);
+    setToggle((prev) => !prev);
+    if (!toggle) {
+      try {
+        const res = await axios.get<Product[]>(
+          "https://fakestoreapi.com/products"
+        );
+        setData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    setIsLoading(false);
+  };
+  // console.log(
+  //   "products data - ",
+  //   data.filter((product) => product.id === 1)
+  // );
+// After click search button data render
+  const handleClickSearch = () =>{
+    setGetInputSearch(search);
+  }
+
+  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const _search = e.target.value;
+    console.log(_search);
+    setSearch(_search);
+  };
+
+  const filteredData = data.filter((item) =>
+    // after click search button
+    // item.title.toLowerCase().includes(getinputSearch.toLowerCase())
+    //with click search button
+    item.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  if (isloading) return <h1>Loading...</h1>;
+
+  return (
+    <div className="flex min-h-svh flex-col iatems-center justify-center">
+      <Button onClick={handleToggle}>
+        {toggle ? "Hide data" : "Show data"}
+      </Button>
+
+      {toggle && (
+        <>
+          <div className="">
+            <input
+              type="text"
+              placeholder="Search Product..."
+              onChange={handleSearch}
+              value={search}
+              className="border"
+            />
+            <Button onClick={handleClickSearch}>Search</Button>
+          </div>
+          {filteredData?.slice(0, 5).map((item) => (
+            <div key={item.id}>
+              <p>{item.id}</p>
+              <p>{item.title}</p>
+            </div>
+          ))}
+        </>
+      )}
+    </div>
+  );
+}
+
+export default App;
