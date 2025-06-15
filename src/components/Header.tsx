@@ -1,5 +1,4 @@
 import { Search, ShoppingCart, Heart, User, Menu, X } from "lucide-react";
-import { RxCross1 } from "react-icons/rx";
 
 import { Button } from "./ui/button";
 
@@ -29,7 +28,7 @@ export default function EcommerceHeader() {
   const { cart, wish } = useSelector((state: RootState) => state.products);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -149,7 +148,6 @@ export default function EcommerceHeader() {
               <Heart className="h-5 w-5" />
               {wish.length > 0 && (
                 <span
-                  variant="destructive"
                   className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-sm"
                 >
                   {wish.length}
@@ -168,7 +166,6 @@ export default function EcommerceHeader() {
               <ShoppingCart className="h-5 w-5" />
               {cart.length > 0 && (
                 <span
-                  variant="destructive"
                   className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-sm"
                 >
                   {cart.length}

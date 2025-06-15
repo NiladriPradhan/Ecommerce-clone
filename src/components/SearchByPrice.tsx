@@ -13,27 +13,18 @@ const SearchByPrice = () => {
   //   };
 
   const handlePrice = (price: number | string) => {
-    dispatch(searchByPrice(price));
+    dispatch(searchByPrice(Number(price)));
     setSelectedPrices(price);
   };
   return (
     <>
       <div className="flex space-x-4 justify-center items-center">
-        {/* <select onChange={handleChange}>
-          <option value="">Select Price</option>
-          <option value={100}>100</option>
-          <option value={200}>200</option>
-          <option value={300}>300</option>
-          <option value={400}>400</option>
-        </select> */}
-        {/* <Button onClick={() => dispatch(fetchProducts())}>All</Button> */}
+       
 
         {["All", 100, 200, 300].map((price) => (
           <Button
             key={price}
             onClick={() => handlePrice(price)}
-          
-
             variant={selectedPrice === price ? "default" : "secondary"}
           >
             {price}
