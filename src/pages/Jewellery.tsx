@@ -1,16 +1,14 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  addToCart,
   fetchProducts,
-  removeFromCart,
 } from "../features/productSlice";
 import type { RootState, AppDispatch } from "../store/store";
 import { Link } from "react-router-dom";
 
 const Electronics = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { data, isLoading, isError, cart } = useSelector(
+  const { data, isLoading, isError } = useSelector(
     (state: RootState) => state.products
   );
 
